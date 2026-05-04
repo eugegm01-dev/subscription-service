@@ -5,6 +5,9 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/golang-migrate/migrate/v4"
+	_ "github.com/golang-migrate/migrate/v4/database/postgres"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 	"github.com/stretchr/testify/suite"
@@ -43,9 +46,14 @@ func (s *PostgresTestSuite) SetupSuite() {
 	s.Require().NoError(err)
 	s.db = db
 
-	// run migrations
-	//migrationsPath := "file://../migrations"
-	// run goose or migrate up
+	// Run migrations
+	m, err := migrate.New(
+		"file://../migrations",
+		dsn,
+	)
+	s.Require().NoError(err)
+	s.Require().NoError(m.Up())
+
 }
 
 func (s *PostgresTestSuite) TearDownSuite() {

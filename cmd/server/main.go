@@ -12,7 +12,6 @@ import (
 
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
 	echoSwagger "github.com/swaggo/echo-swagger"
 
 	"subscription-service/internal/config"
@@ -22,8 +21,9 @@ import (
 	"subscription-service/internal/repository"
 	"subscription-service/internal/service"
 
-	_ "github.com/lib/pq"
 	_ "subscription-service/docs" // swagger docs (will be generated later)
+
+	_ "github.com/lib/pq"
 )
 
 // @title Subscription Service API
